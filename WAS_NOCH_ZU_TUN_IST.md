@@ -40,6 +40,7 @@
 
 #### A. API-Keys einrichten
 ```bash
+#gemacht
 # 1. TMDb API Key besorgen
 # - Gehe zu: https://www.themoviedb.org/settings/api
 # - Account erstellen (falls nicht vorhanden)
