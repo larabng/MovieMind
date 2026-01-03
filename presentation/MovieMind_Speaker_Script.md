@@ -226,20 +226,7 @@
 
 ---
 
-## Slide 13: Interactive Web Application (30 sec)
-
-> "We also developed an interactive dashboard.
->
-> The Flask-Dash application offers:
-> - **Live Prediction:** Enter review text and instantly get sentiment plus score
-> - **Database Statistics:** Movie and review counts, genre distribution
-> - **Visualizations:** Rating histograms and interactive Plotly charts
->
-> The dashboard demonstrates the practical applicability of our pipeline."
-
----
-
-## Slide 14: Conclusions (1 min)
+## Slide 13: Conclusions (1 min)
 
 > "In summary:
 >
@@ -263,7 +250,7 @@
 
 ---
 
-## Slide 15: Thank You (30 sec)
+## Slide 14: Thank You (30 sec)
 
 > "Thank you for your attention!
 >
@@ -273,7 +260,7 @@
 
 ---
 
-## Slide 16: Appendix (Only show if asked)
+## Slide 15: Appendix (Only show if asked)
 
 > *[Only mention if asked:]*
 >
