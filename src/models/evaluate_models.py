@@ -217,7 +217,7 @@ def evaluate_score_predictor(model_path: str = 'models/score_predictor'):
     logger.info(f"MSE:      {mse:.4f}")
 
     # Residuals
-    residuals = df_scored['score'] - predictions
+    residuals = df_scored['score'].astype(float) - predictions
 
     # Residual statistics
     logger.info("\n--- RESIDUAL STATISTICS ---")

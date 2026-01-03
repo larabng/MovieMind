@@ -251,6 +251,9 @@ class ScorePredictor:
         # Predict
         y_pred = self.predict(X_text, X_meta)
 
+        # Convert y_test to float to avoid Decimal issues
+        y_test = y_test.astype(float)
+
         # Calculate metrics
         rmse = np.sqrt(mean_squared_error(y_test, y_pred))
         mae = mean_absolute_error(y_test, y_pred)
