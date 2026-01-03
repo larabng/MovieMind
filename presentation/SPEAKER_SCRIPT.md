@@ -1,298 +1,298 @@
 # MovieMind - Speaker Script
-## 15-Minuten Praesentation (3 Personen)
+## 15-Minute Presentation (3 Speakers)
 
 ---
 
-# Rollenverteilung
+# Role Distribution
 
-| Person | Themen | Zeit |
+| Person | Topics | Time |
 |--------|--------|------|
-| **Speaker 1** | Title, Introduction, Materials | ~5 Min |
-| **Speaker 2** | Methods (Preprocessing, ML, EDA) | ~5 Min |
-| **Speaker 3** | Results, Demo, Conclusions | ~5 Min |
+| **Speaker 1 (Lara)** | Title, Introduction, Materials | ~5 Min |
+| **Speaker 2 (Michele)** | Methods (Preprocessing, ML, EDA) | ~5 Min |
+| **Speaker 3 (Daniele)** | Results, Demo, Conclusions | ~5 Min |
 
 ---
 
-# SPEAKER 1 (ca. 5 Minuten)
+# SPEAKER 1 - LARA (approx. 5 minutes)
 
-## Slide 1: Title (30 Sek)
+## Slide 1: Title (30 sec)
 
-> "Willkommen zu unserer Praesentation ueber MovieMind - ein End-to-End Analytics System fuer Film-Reviews.
+> "Welcome to our presentation on MovieMind - an end-to-end analytics system for movie reviews.
 >
-> Unser Team besteht aus [Name 1], [Name 2] und [Name 3]. Ich werde euch durch die Einfuehrung und Daten fuehren, [Name 2] erklaert die Methoden, und [Name 3] praesentiert die Ergebnisse."
-
----
-
-## Slide 2: Introduction - Background (1 Min)
-
-> "Warum analysieren wir Film-Reviews?
->
-> Streaming-Plattformen wie Netflix und Disney+ erhalten taeglich tausende von Nutzer-Reviews. Eine manuelle Analyse ist zeitaufwendig und inkonsistent.
->
-> Der globale Streaming-Markt ist ueber 300 Milliarden Dollar wert. Fruehzeitige Erkennung negativer Trends kann Millionen an Marketing-Kosten sparen.
->
-> Studios brauchen automatisierte Sentiment-Analyse, um schnell auf Nutzerfeedback reagieren zu koennen."
+> Our team consists of myself Lara, Michele, and Daniele. I will guide you through the introduction and data, Michele will explain our methods, and Daniele will present the results."
 
 ---
 
-## Slide 3: Objective & Research Questions (1 Min)
+## Slide 2: Introduction - Background (1 min)
 
-> "Unser Ziel ist es, eine komplette Analytics-Pipeline zu bauen, die unstrukturierte Reviews in verwertbare Insights transformiert.
+> "Why do we analyze movie reviews?
 >
-> Wir haben vier zentrale Forschungsfragen:
+> Streaming platforms like Netflix and Disney+ receive thousands of user reviews every day. Manual analysis is time-consuming and inconsistent.
 >
-> **Erstens:** Kann Sentiment in Reviews akkurat klassifiziert werden - also positiv, neutral oder negativ?
+> The global streaming market is worth over 300 billion dollars. Early detection of negative trends can save millions in marketing costs.
 >
-> **Zweitens:** Koennen wir Film-Bewertungen von 0 bis 10 aus dem Review-Text vorhersagen?
->
-> **Drittens:** Welche Muster existieren ueber Genres und Zeit hinweg?
->
-> **Und viertens:** Wie gruppieren sich Filme basierend auf Publikumsreaktionen?"
+> Studios need automated sentiment analysis to quickly respond to user feedback."
 
 ---
 
-## Slide 4: Data Source (1 Min)
+## Slide 3: Objective & Research Questions (1 min)
 
-> "Fuer unsere Daten nutzen wir die TMDb API - The Movie Database - den Industriestandard fuer Film-Metadaten.
+> "Our goal is to build a complete analytics pipeline that transforms unstructured reviews into actionable insights.
 >
-> Wir haben 500 bis 1000 Filme gesammelt mit jeweils mindestens 30 Reviews pro Film. Das ergibt tausende von Reviews insgesamt.
+> We have four central research questions:
 >
-> Die Daten umfassen Film-Metadaten wie Titel, Genre, Laufzeit, Budget und Revenue. Dazu die Reviews mit Inhalt, Autor, Rating und Datum.
+> **First:** Can sentiment in reviews be accurately classified - meaning positive, neutral, or negative?
 >
-> Unsere Sammelstrategie kombiniert populaere Filme mit Top-bewerteten Filmen, um eine gute Mischung zu bekommen."
-
----
-
-## Slide 5: Database Schema (1.5 Min)
-
-> "Die Daten speichern wir in einer PostgreSQL-Datenbank.
+> **Second:** Can we predict movie ratings from 0 to 10 based on the review text?
 >
-> Wir haben drei Haupt-Tabellen: Movies, Reviews und Countries fuer geo-Visualisierungen.
+> **Third:** What patterns exist across genres and over time?
 >
-> Besonders wichtig sind unsere Optimierungen:
->
-> Wir nutzen GIN-Indexes fuer die Genre-Arrays - das beschleunigt Abfragen erheblich.
->
-> Ausserdem haben wir drei SQL-Views erstellt:
-> - **movie_review_stats** aggregiert Statistiken pro Film
-> - **genre_sentiment_analysis** zeigt Sentiment-Verteilung nach Genre
-> - **temporal_sentiment_trends** analysiert Trends ueber Zeit
->
-> Das zeigt, dass wir nicht nur die Daten speichern, sondern auch direkt in der Datenbank analysieren."
->
-> *[UEBERGABE]* "Jetzt uebergebe ich an [Name 2], der unsere Methoden erklaert."
+> **And fourth:** How do movies cluster based on audience reactions?"
 
 ---
 
-# SPEAKER 2 (ca. 5 Minuten)
+## Slide 4: Data Source (1 min)
 
-## Slide 6: Text Preprocessing (1.5 Min)
-
-> "Danke [Name 1]. Ich erklaere jetzt unsere NLP-Pipeline.
+> "For our data, we use the TMDb API - The Movie Database - which is the industry standard for movie metadata.
 >
-> Text-Daten sind unstrukturiert und muessen aufbereitet werden. Unser TextProcessor durchlaeuft sieben Schritte:
+> We collected 500 to 1000 movies with at least 30 reviews per movie. This gives us thousands of reviews in total.
 >
-> **Erstens:** HTML-Tags entfernen mit BeautifulSoup
-> **Zweitens:** URLs entfernen mit Regex
-> **Drittens:** Alles in Kleinbuchstaben
-> **Viertens:** Sonderzeichen entfernen
-> **Fuenftens:** Tokenisierung mit NLTK
-> **Sechstens:** Stopwoerter entfernen
-> **Und siebtens:** Lemmatisierung - also Woerter auf ihre Grundform bringen
+> The data includes movie metadata such as title, genre, runtime, budget, and revenue. Plus the reviews with content, author, rating, and date.
 >
-> Zusaetzlich extrahieren wir Features wie Textlaenge, Wortanzahl, Satzanzahl und Ausrufezeichen-Haeufigkeit. Diese koennen spaeter als Metadaten-Features verwendet werden."
+> Our collection strategy combines popular movies with top-rated movies to get a good mix."
 
 ---
 
-## Slide 7: Machine Learning Models (1.5 Min)
+## Slide 5: Database Schema (1.5 min)
 
-> "Wir setzen drei Machine-Learning-Modelle ein.
+> "We store the data in a PostgreSQL database.
 >
-> **Fuer die Sentiment-Klassifikation** verwenden wir Logistic Regression mit TF-IDF-Vektorisierung. Wir nutzen Uni- und Bigrams mit bis zu 5000 Features. Die Klassen-Gewichtung ist 'balanced', um mit ungleich verteilten Daten umzugehen.
+> We have three main tables: Movies, Reviews, and Countries for geo-visualizations.
 >
-> **Fuer die Score-Prediction** nutzen wir Ridge Regression - also L2-regularisierte lineare Regression. Wir kombinieren TF-IDF-Features mit Metadaten wie Textlaenge und Wortanzahl. Die Vorhersage wird auf den Bereich 0-10 geclipt.
+> Particularly important are our optimizations:
 >
-> **Fuer das Clustering** setzen wir K-Means ein. Die optimale Cluster-Anzahl bestimmen wir mit der Elbow-Methode und Silhouette-Score."
-
----
-
-## Slide 8: Exploratory Data Analysis (2 Min)
-
-> "Unsere EDA folgt einem strukturierten Ansatz.
+> We use GIN indexes for the genre arrays - this significantly speeds up queries.
 >
-> **Univariate Analyse:** Wir schauen uns Verteilungen einzelner Variablen an - Rating-Histogramme, Laufzeit-Verteilung, Review-Laengen.
+> Additionally, we created three SQL views:
+> - **movie_review_stats** aggregates statistics per movie
+> - **genre_sentiment_analysis** shows sentiment distribution by genre
+> - **temporal_sentiment_trends** analyzes trends over time
 >
-> **Bivariate Analyse:** Hier analysieren wir Zusammenhaenge - zum Beispiel die Korrelationsmatrix zwischen Laufzeit, Budget, Revenue und Ratings. Oder Genre-spezifische Rating-Muster.
+> This shows that we don't just store the data, but also analyze it directly in the database."
 >
-> **Und ganz wichtig - statistische Tests mit P-Werten:**
->
-> Der Chi-Squared-Test zeigt, ob Genre und Rating-Kategorie zusammenhaengen. Ergebnis: p unter 0.05 - also signifikant.
->
-> ANOVA testet, ob sich Ratings zwischen Genres unterscheiden. Ergebnis: p unter 0.01 - Drama und Thriller haben signifikant hoehere Ratings.
->
-> Pearson-Korrelation zwischen Laufzeit und Rating ist ebenfalls signifikant.
->
-> Diese statistischen Tests mit expliziten P-Werten sind wichtig fuer die wissenschaftliche Rigorositaet."
->
-> *[UEBERGABE]* "Jetzt uebergebe ich an [Name 3] fuer die Ergebnisse."
+> *[HANDOVER]* "Now I'll hand over to Michele, who will explain our methods."
 
 ---
 
-# SPEAKER 3 (ca. 5 Minuten)
+# SPEAKER 2 - MICHELE (approx. 5 minutes)
 
-## Slide 9: Classification Results (1 Min)
+## Slide 6: Text Preprocessing (1.5 min)
 
-> "Danke [Name 2]. Ich praesentiere jetzt unsere Ergebnisse.
+> "Thanks Lara. I'll now explain our NLP pipeline.
 >
-> Die Confusion Matrix zeigt die Performance unseres Sentiment-Classifiers.
+> Text data is unstructured and needs to be preprocessed. Our TextProcessor goes through seven steps:
 >
-> Was faellt auf? Die **positive Klasse wird sehr gut erkannt** - 214 von rund 235 korrekt klassifiziert. Das ist eine Accuracy von ueber 90% fuer diese Klasse.
+> **First:** Remove HTML tags with BeautifulSoup
+> **Second:** Remove URLs with Regex
+> **Third:** Convert everything to lowercase
+> **Fourth:** Remove special characters
+> **Fifth:** Tokenization with NLTK
+> **Sixth:** Remove stopwords
+> **And seventh:** Lemmatization - reducing words to their base form
 >
-> Die Unterscheidung zwischen neutral und negativ ist schwieriger. Das ist typisch, weil neutrale Reviews oft gemischte Signale haben.
->
-> Insgesamt erreichen wir etwa 80% Accuracy. Die Class-Weighting hilft bei der Imbalance, aber es gibt noch Verbesserungspotential."
-
----
-
-## Slide 10: Regression Results (1 Min)
-
-> "Bei der Score-Prediction sehen wir die Residual-Plots.
->
-> Der linke Plot zeigt Residuals gegen vorhergesagte Werte. Die Residuals sind um Null zentriert - das ist gut, es zeigt keinen systematischen Bias.
->
-> Der rechte Plot zeigt Predicted vs. Actual. Die Punkte liegen nahe der Diagonale - je naeher, desto besser die Vorhersage.
->
-> Unser R-Squared und RMSE zeigen, dass das Modell einen signifikanten Teil der Varianz erklaert.
->
-> Die wichtigsten Features fuer gute Scores sind Woerter wie 'brilliant', 'masterpiece', 'excellent'. Fuer schlechte Scores: 'boring', 'disappointing', 'waste'."
+> Additionally, we extract features such as text length, word count, sentence count, and exclamation mark frequency. These can later be used as metadata features."
 
 ---
 
-## Slide 11: Clustering Results (1 Min)
+## Slide 7: Machine Learning Models (1.5 min)
 
-> "Das K-Means-Clustering mit k gleich 5 zeigt interessante Muster.
+> "We employ three machine learning models.
 >
-> Wir sehen fuenf distinkte Cluster:
-> - Cluster 1: Blockbuster-Action mit moderaten Ratings
-> - Cluster 2: Indie-Dramen mit hoher kritischer Anerkennung
-> - Cluster 3: Familien-Komoedien
-> - Cluster 4: Horror und Thriller mit polarisierten Meinungen
-> - Cluster 5: Underperformer mit niedrigen Ratings
+> **For sentiment classification**, we use Logistic Regression with TF-IDF vectorization. We use unigrams and bigrams with up to 5000 features. Class weighting is set to 'balanced' to handle imbalanced data.
 >
-> Der Silhouette-Score bestaetigt gute Cluster-Trennung.
+> **For score prediction**, we use Ridge Regression - that is L2-regularized linear regression. We combine TF-IDF features with metadata like text length and word count. The prediction is clipped to the range 0 to 10.
 >
-> Der Business-Nutzen: Studios koennen Marketingstrategien nach Cluster differenzieren und Fruehwarnsignale bei Cluster 5 erkennen."
+> **For clustering**, we use K-Means. We determine the optimal number of clusters using the elbow method and silhouette score."
 
 ---
 
-## Slide 12: Statistical Insights (30 Sek)
+## Slide 8: Exploratory Data Analysis (2 min)
 
-> "Zusammenfassend die wichtigsten statistischen Erkenntnisse:
+> "Our EDA follows a structured approach.
 >
-> Genre ist stark mit Rating assoziiert. Drama und Thriller performen signifikant besser.
+> **Univariate analysis:** We look at distributions of individual variables - rating histograms, runtime distribution, review lengths.
 >
-> Laengere Filme tendieren zu hoeheren, aber auch polarisierten Ratings.
+> **Bivariate analysis:** Here we analyze relationships - for example, the correlation matrix between runtime, budget, revenue, and ratings. Or genre-specific rating patterns.
 >
-> Alle unsere Hypothesentests haben signifikante P-Werte unter 0.05."
-
----
-
-## Slide 13: Live Demo (1 Min) - OPTIONAL
-
-> "Falls Zeit bleibt, zeige ich kurz unser Dashboard.
+> **And very importantly - statistical tests with p-values:**
 >
-> *[Wenn Demo gezeigt wird:]*
-> Hier kann man einen Review-Text eingeben. Das System preprocessing den Text, wendet unsere trainierten Modelle an, und zeigt Sentiment plus vorhergesagten Score.
+> The Chi-squared test shows whether genre and rating category are associated. Result: p below 0.05 - so it's significant.
 >
-> Dazu Text-Statistiken und die Database-Uebersicht.
+> ANOVA tests whether ratings differ between genres. Result: p below 0.01 - Drama and Thriller have significantly higher ratings.
 >
-> *[Wenn keine Demo:]*
-> Das Dashboard ist eine Flask-Dash-Applikation mit Live-Prediction, Database-Statistiken und Visualisierungen."
+> Pearson correlation between runtime and rating is also significant.
+>
+> These statistical tests with explicit p-values are important for scientific rigor."
+>
+> *[HANDOVER]* "Now I'll hand over to Daniele for the results."
 
 ---
 
-## Slide 14: Conclusions (30 Sek)
+# SPEAKER 3 - DANIELE (approx. 5 minutes)
 
-> "Zusammenfassend:
+## Slide 9: Classification Results (1 min)
+
+> "Thanks Michele. I'll now present our results.
 >
-> Wir haben eine vollstaendige End-to-End-Pipeline gebaut - von der API bis zur Vorhersage.
+> The confusion matrix shows the performance of our sentiment classifier.
 >
-> Unsere Modelle erreichen solide Performance mit statistisch validierten Ergebnissen.
+> What stands out? The **positive class is detected very well** - 214 out of about 235 correctly classified. That's an accuracy of over 90% for this class.
 >
-> Als Limitationen: Wir arbeiten nur mit englischen Reviews, und die TMDb-Ratings koennen sich von anderen Plattformen unterscheiden.
+> The distinction between neutral and negative is more difficult. This is typical because neutral reviews often have mixed signals.
 >
-> Fuer die Zukunft waere Deep Learning mit BERT interessant, sowie Multi-Language-Support."
->
-> *[ABSCHLUSS]* "Vielen Dank fuer eure Aufmerksamkeit. Der Appendix zeigt unsere detaillierten Punktenachweise mit Screenshots."
+> Overall, we achieve about 80% accuracy. Class weighting helps with imbalance, but there's still room for improvement."
 
 ---
 
-# Timing-Checkliste
+## Slide 10: Regression Results (1 min)
 
-| Abschnitt | Ziel-Zeit | Checkpoint |
-|-----------|-----------|------------|
+> "For score prediction, we see the residual plots.
+>
+> The left plot shows residuals against predicted values. The residuals are centered around zero - that's good, it shows no systematic bias.
+>
+> The right plot shows predicted versus actual. The points lie close to the diagonal - the closer, the better the prediction.
+>
+> Our R-squared and RMSE show that the model explains a significant portion of the variance.
+>
+> The most important features for good scores are words like 'brilliant', 'masterpiece', 'excellent'. For bad scores: 'boring', 'disappointing', 'waste'."
+
+---
+
+## Slide 11: Clustering Results (1 min)
+
+> "K-Means clustering with k equals 5 shows interesting patterns.
+>
+> We see five distinct clusters:
+> - Cluster 1: Blockbuster action with moderate ratings
+> - Cluster 2: Indie dramas with high critical acclaim
+> - Cluster 3: Family comedies
+> - Cluster 4: Horror and thriller with polarized opinions
+> - Cluster 5: Underperformers with low ratings
+>
+> The silhouette score confirms good cluster separation.
+>
+> The business value: Studios can differentiate marketing strategies by cluster and detect early warning signals for Cluster 5."
+
+---
+
+## Slide 12: Statistical Insights (30 sec)
+
+> "In summary, the key statistical findings:
+>
+> Genre is strongly associated with rating. Drama and Thriller perform significantly better.
+>
+> Longer movies tend to have higher but also more polarized ratings.
+>
+> All our hypothesis tests have significant p-values below 0.05."
+
+---
+
+## Slide 13: Live Demo (1 min) - OPTIONAL
+
+> "If time permits, I'll briefly show our dashboard.
+>
+> *[If demo is shown:]*
+> Here you can enter a review text. The system preprocesses the text, applies our trained models, and shows sentiment plus predicted score.
+>
+> Plus text statistics and the database overview.
+>
+> *[If no demo:]*
+> The dashboard is a Flask-Dash application with live prediction, database statistics, and visualizations."
+
+---
+
+## Slide 14: Conclusions (30 sec)
+
+> "In summary:
+>
+> We built a complete end-to-end pipeline - from API to prediction.
+>
+> Our models achieve solid performance with statistically validated results.
+>
+> As limitations: We only work with English reviews, and TMDb ratings may differ from other platforms.
+>
+> For the future, deep learning with BERT would be interesting, as well as multi-language support."
+>
+> *[CLOSING]* "Thank you for your attention. The appendix shows our detailed documentation of bonus points with screenshots."
+
+---
+
+# Timing Checklist
+
+| Section | Target Time | Checkpoint |
+|---------|-------------|------------|
 | Speaker 1 Start | 0:00 | |
-| Slide 3 fertig | 2:30 | |
-| Speaker 1 Ende | 5:00 | |
+| Slide 3 finished | 2:30 | |
+| Speaker 1 End | 5:00 | |
 | Speaker 2 Start | 5:00 | |
-| Slide 7 fertig | 8:00 | |
-| Speaker 2 Ende | 10:00 | |
+| Slide 7 finished | 8:00 | |
+| Speaker 2 End | 10:00 | |
 | Speaker 3 Start | 10:00 | |
-| Slide 12 fertig | 13:00 | |
-| Speaker 3 Ende | 15:00 | |
+| Slide 12 finished | 13:00 | |
+| Speaker 3 End | 15:00 | |
 
 ---
 
-# Tipps fuer die Aufnahme
+# Tips for Recording
 
-1. **Vorbereitung:**
-   - Skript mehrmals durchlesen
-   - Wichtige Woerter markieren
-   - Timing ueben
+1. **Preparation:**
+   - Read through the script several times
+   - Mark important words
+   - Practice timing
 
-2. **Technisches:**
-   - Gutes Mikrofon verwenden
-   - Ruhige Umgebung
-   - Bildschirmaufnahme testen
+2. **Technical:**
+   - Use a good microphone
+   - Quiet environment
+   - Test screen recording
 
-3. **Praesentation:**
-   - Frei sprechen, nicht ablesen
-   - Auf Slides zeigen/highlighten
-   - Pausen bei Uebergaben
+3. **Presentation:**
+   - Speak freely, don't read word for word
+   - Point to/highlight slides
+   - Pause during handovers
 
-4. **Uebergaben:**
-   - Kurz + klar: "Jetzt uebergebe ich an [Name]..."
-   - Blickkontakt (virtuell) halten
+4. **Handovers:**
+   - Short + clear: "Now I'll hand over to [Name]..."
+   - Maintain eye contact (virtually)
 
 5. **Appendix:**
-   - Nicht live praesentieren
-   - Nur erwaehnen: "Details im Appendix"
+   - Don't present live
+   - Just mention: "Details in the appendix"
 
 ---
 
-# Notfall-Kuerzungen
+# Emergency Cuts
 
-Falls Zeit knapp wird, kuerze hier:
+If time is running short, cut here:
 
-1. **Slide 4 (Data Source):** Nur API erwaehnen, Details skippen
-2. **Slide 8 (EDA):** Fokus auf statistische Tests, univariate skippen
-3. **Slide 13 (Demo):** Komplett skippen, nur erwaehnen
-4. **Slide 12 (Stats Insights):** In Conclusions integrieren
-
----
-
-# Appendix-Verweis
-
-Am Ende von Slide 14:
-
-> "Im Appendix findet ihr detaillierte Dokumentation unserer Punktenachweise:
-> - PostgreSQL Schema mit Views und Indexes
-> - Alle statistischen Tests mit P-Werten
-> - K-Means Clustering mit Elbow-Plot und Silhouette
-> - Regression-Diagnostics mit Residual-Plots
-> - Confusion Matrix und Classification Report
-> - Code-Snippets aus unseren Implementierungen"
+1. **Slide 4 (Data Source):** Only mention API, skip details
+2. **Slide 8 (EDA):** Focus on statistical tests, skip univariate
+3. **Slide 13 (Demo):** Skip completely, just mention it
+4. **Slide 12 (Stats Insights):** Integrate into conclusions
 
 ---
 
-# Ende des Skripts
+# Appendix Reference
+
+At the end of Slide 14:
+
+> "In the appendix, you'll find detailed documentation of our bonus points:
+> - PostgreSQL schema with views and indexes
+> - All statistical tests with p-values
+> - K-Means clustering with elbow plot and silhouette
+> - Regression diagnostics with residual plots
+> - Confusion matrix and classification report
+> - Code snippets from our implementations"
+
+---
+
+# End of Script
