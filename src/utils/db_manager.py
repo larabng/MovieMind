@@ -9,6 +9,7 @@ from psycopg2.extras import execute_values, RealDictCursor
 from dotenv import load_dotenv
 from typing import List, Dict, Any, Optional
 import logging
+from decimal import Decimal
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -51,6 +52,25 @@ class DatabaseManager:
             self.conn.close()
         logger.info("Database connection closed")
 
+    def _convert_decimals(self, data: Any) -> Any:
+        """
+        Recursively convert Decimal objects to float for numpy/matplotlib compatibility
+
+        Args:
+            data: Data to convert (can be dict, list, Decimal, or any other type)
+
+        Returns:
+            Converted data with Decimals as floats
+        """
+        if isinstance(data, Decimal):
+            return float(data)
+        elif isinstance(data, dict):
+            return {key: self._convert_decimals(value) for key, value in data.items()}
+        elif isinstance(data, list):
+            return [self._convert_decimals(item) for item in data]
+        else:
+            return data
+
     def execute_query(self, query: str, params: tuple = None) -> List[Dict]:
         """
         Execute a SELECT query and return results
@@ -60,11 +80,13 @@ class DatabaseManager:
             params: Query parameters
 
         Returns:
-            List of dictionaries containing query results
+            List of dictionaries containing query results (Decimals converted to float)
         """
         try:
             self.cursor.execute(query, params)
-            return self.cursor.fetchall()
+            results = self.cursor.fetchall()
+            # Convert all Decimal values to float for numpy/matplotlib compatibility
+            return [self._convert_decimals(dict(row)) for row in results]
         except Exception as e:
             logger.error(f"Query execution failed: {e}")
             raise
